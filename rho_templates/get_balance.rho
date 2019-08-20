@@ -1,0 +1,23 @@
+new 
+  rl(`rho:registry:lookup`), stdout(`rho:io:stdout`), 
+  revVaultCh, vaultCh, balanceCh, log
+in {
+  rl!(`rho:rchain:revVault`, *revVaultCh) |
+  for (@(_, revVault) <- revVaultCh) {
+    match "%address%" {
+      revAddress => {
+        @revVault!("findOrCreate", revAddress, *vaultCh) |
+        for (@(true, vault) <- vaultCh) {
+          @vault!("balance", *balanceCh) |
+          for (@balance <- balanceCh) {
+            log!("Balance of " ++ revAddress ++ " is ${balance}."%%{"balance":balance})
+          }
+        }
+      }
+    }
+  } |
+
+  contract log(@data) = {
+    stdout!("%log_marker%: " ++ data ++ " Deployed to %validator% at %now% UTC.")
+  }
+}

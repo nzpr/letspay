@@ -1,0 +1,20 @@
+#number of users
+users_qty=2
+#how much of them are payers? remaining will be payees.
+payers_qty=1
+payees_qty=$(($users_qty-$payers_qty))
+#Run ./listen <RNode URL> to listen for logs with your marker. Works for testnet.
+log_marker=changethis
+
+VALIDATORS_NUM=5
+VALIDATOR_NAME_PRE="node"
+VALIDATOR_NAME_POST=".testnet.rchain-dev.tk"
+
+#delay between code populating payers wallets deployed and starting payments
+start_payments_delay=10s
+
+#delay between subsequent payments for each payer 
+next_payment_delay=60s
+
+#payers start transfers sequentially with this delay  
+start_payer_delay=0s

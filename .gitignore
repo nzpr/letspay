@@ -1,0 +1,9 @@
+tmp
+out
+accounts
+logs
+offchain/node_modules
+offchain/offchain.db
+config*
+!config.example
+
